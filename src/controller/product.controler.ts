@@ -2,7 +2,6 @@ import { Request, Response } from "express"
 import { Sub_Catagory } from "../models/sub_category.model";
 import { Catagory } from "../models/catagory.model";
 import { Pruduct } from "../models/pruduct.model";
-import { where } from "sequelize";
 import { productValidator } from "../validator/pro.validator";
 
 class Pruduct_controller {
@@ -28,8 +27,8 @@ class Pruduct_controller {
                 res.status(400).send("requested sub category donst exist")
                 return
             }
-            const pro = Pruduct.build({ sub_id:sub_id,Product_Name:Product_Name,price:price,availabilty:availabilty,Quantity:Quantity });
-            const proSavd = await pro.save();
+            const product_data = Pruduct.build({ sub_id:sub_id,Product_Name:Product_Name,price:price,availabilty:availabilty,Quantity:Quantity });
+            const proSavd = await product_data.save();
             res.status(200).send(proSavd);
         } catch (err) {
             console.log("error in adding pruduct :",err);
