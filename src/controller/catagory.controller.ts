@@ -8,7 +8,7 @@ class Catagory_controller {
         res: Response
     ): Promise<void> => {
         try {
-            const result = await catagorey_Schema_validation.validateAsync(req.body);
+            const result = await catagorey_Schema_validation.validateAsync({name:req.body.name});
             // console.log(result)
             // if (result.error instanceof ValidationError) {
                 
@@ -22,10 +22,10 @@ class Catagory_controller {
                 res.send(400).send("data not found");
                 return;
             }
-            let existing_catogrey = await Catagory.findOne({ where: { name: name } });
+            let existing_catogrey_found = await Catagory.findOne({ where: { name: name } });
             console.log("before database action")
-            if (existing_catogrey) {
-                console.log(existing_catogrey)
+            if (existing_catogrey_found) {
+                console.log(existing_catogrey_found)
                 res.status(400).send("catagorey already exist");
                 return;
             }
